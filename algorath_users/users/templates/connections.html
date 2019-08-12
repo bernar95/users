@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>User´s connections</title>
+    </head>
+
+    <body>
+        <h2> These are the connections of the user {{ user.user_name }}</h2>
+
+        {% if user.user_connections.all %}
+             <ul>
+                {% for user_connected in user.user_connections.all %}
+                    <li>{{ user_connected.user_name }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>{{ user.user_name }} has no connections yet.</p>
+        {% endif %}
+    </body>
+</html>

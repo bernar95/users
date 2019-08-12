@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>Algorath users</title>
+    </head>
+
+    <body>
+        <h2> Welcome to our Users app! </h2>
+
+        <h4>These are some of the latest users added to the app: </h4>
+
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+        <form action="{% url 'add_user' %}" method="post">
+            {% csrf_token %}
+            <header>User´s name</header>
+            <input type="text" name='name'>
+            <input type="submit" value="Add user">
+        </form>
+
+        {% if user_list %}
+        <ul>
+            {% for user in user_list %}
+                <li><a href="{% url 'connections' user.user_id %}">{{ user.user_name }}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p>No users are available.</p>
+        {% endif %}
+
+    </body>
+</html>
