@@ -15,5 +15,32 @@
         {% else %}
             <p>{{ user.user_name }} has no connections yet.</p>
         {% endif %}
+
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+        <form action="{% url 'find_user' user.user_id %}" method="post">
+            {% csrf_token %}
+            <header>User´s name</header>
+            <input type="text" name='name'>
+            <input type="submit" value="Find user">
+        </form>
+
+        {% if user_list %}
+                 <ul>
+                    {% for user_found in user_list %}
+                        <form action="{% url 'connect_user' user.user_id %}" method="post">
+                        {% csrf_token %}
+                        <input type="text" style="border:0" name="connect_name" readonly="readonly" value=
+                                "{{ user_found.user_name }}">
+                         {% if user.user_name != user_found.user_name %}
+                            <input type="submit" value="Connect user">
+                         {% endif %}
+                        </form>
+                    {% endfor %}
+                </ul>
+        {% endif %}
+
+        <a href="{% url 'index' %}">Go back</a>
+
     </body>
 </html>
